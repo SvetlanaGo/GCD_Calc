@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="GcdCalculator.Controllers.HomeController">
+    <Position X="0.5" Y="0.5" Width="3" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Delegate Name="GcdCalculator.Controllers.HomeController.CalculateByTwoParams&lt;T, U&gt;">
+        <TypeIdentifier>
+          <NewMemberFileName>Controllers\HomeController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="GcdCalculator.Controllers.HomeController.CalculateByThreeParams&lt;T, U&gt;">
+        <TypeIdentifier>
+          <NewMemberFileName>Controllers\HomeController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="GcdCalculator.Controllers.HomeController.CalculateByManyParams&lt;T, U, V&gt;">
+        <TypeIdentifier>
+          <NewMemberFileName>Controllers\HomeController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAIgCECQgEACAAAAAAAQAAAIQAgAFAAIAAAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GcdCalculator.Models.ErrorViewModel">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ErrorViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GcdCalculator.Models.ResultViewModel">
+    <Position X="4" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAQgAAQAAAAYAAAAIAAAAAAAAAAQAAQA=</HashCode>
+      <FileName>Models\ResultViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
