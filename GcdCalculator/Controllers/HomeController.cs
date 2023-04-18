@@ -24,23 +24,16 @@ namespace GcdCalculator.Controllers
         /// <summary>
         /// Calculates a greatest commn divisor
         /// </summary>
-        /// <param name="countNumbers">The number of integers for which it is necessary to find a common divisor</param>
-        /// <param name="first">The first integer</param>
-        /// <param name="second">The second integer</param>
-        /// <param name="third">The second integer</param>
-        /// <param name="numbersOther">Other integers</param>
-        /// <param name="algorithm">The algorithm by which it is necessary to perform the calculation</param>
-        /// <param name="extended">Indication of the need to calculate the execution time of the algorithm</param>
+        /// <param name="vdata">The ResultViewModel</param>
         /// <returns>Returns a representation of the result model</returns>
-        public IActionResult Index(string countNumbers, int? first, int? second, int? third, string? numbersOther, string algorithm, string extended)
+        public IActionResult Index(ResultViewModel vdata, string submit)
         {
-            ResultViewModel vdata = new ResultViewModel(countNumbers, first, second, third, numbersOther, algorithm, extended);
+            if (submit != "Calculate")
+                return View(vdata);
+
             try
             {
-                if (algorithm is null)
-                    return View(vdata);
-
-                if (!this.CheckIntegerParam(first, "First", vdata) || !this.CheckIntegerParam(second, "Second", vdata))
+                if (!this.CheckRequiredParams(vdata))
                     return View(vdata);
 
                 this.GcdCalculate(vdata);
@@ -65,6 +58,50 @@ namespace GcdCalculator.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private bool CheckRequiredParams(ResultViewModel model)
+        {
+            if (string.IsNullOrWhiteSpace(model.CountNumbers))
+            {
+                model.Error = "Error: The count of numbers is not selected.";
+                return false;
+            }
+
+            if (!this.CheckIntegerParam(model.First, "First", model) || !this.CheckIntegerParam(model.Second, "Second", model))
+                return false;
+
+            if (string.IsNullOrWhiteSpace(model.Algorithm))
+            {
+                model.Error = "Error: No algorithm selected.";
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool CheckIntegerParam(int? integerParam, string fieldName, ResultViewModel model)
+        {
+            if (!integerParam.HasValue)
+            {
+                model.Error = @$"Error: The value entered in the ""{fieldName}"" field is not an integer in the allowed range.";
+
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool CheckManyParams(ResultViewModel model)
+        {
+            if (string.IsNullOrWhiteSpace(model.NumbersOther))
+            {
+                model.Error = "Error: Integer's field is not filled in.";
+
+                return false;
+            }
+
+            return true;
         }
 
         private void GcdCalculate(ResultViewModel model) =>
@@ -149,31 +186,7 @@ namespace GcdCalculator.Controllers
             model.Algorithm == "Stein" ? GcdAlgorithms.GetGcdByStein : GcdAlgorithms.GetGcdByEuclidean;
 
         private CalculateByManyParams<int, long, int[]> GetExtendedAlgorithmByManyParams(ResultViewModel model) =>
-            model.Algorithm == "Stein" ? GcdAlgorithms.GetGcdByStein : GcdAlgorithms.GetGcdByEuclidean;
-
-        private bool CheckIntegerParam(int? integerParam, string fieldName, ResultViewModel model)
-        {
-            if (!integerParam.HasValue)
-            {
-                model.Error = @$"Error: The value entered in the ""{fieldName}"" field is not an integer in the allowed range.";
-
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool CheckManyParams(ResultViewModel model)
-        {
-            if (string.IsNullOrWhiteSpace(model.NumbersOther))
-            {
-                model.Error = "Error: Integer's field is not filled in.";
-
-                return false;
-            }
-
-            return true;
-        }
+            model.Algorithm == "Stein" ? GcdAlgorithms.GetGcdByStein : GcdAlgorithms.GetGcdByEuclidean;        
 
         private IEnumerable<int> GetNumberList(ResultViewModel model)
         {

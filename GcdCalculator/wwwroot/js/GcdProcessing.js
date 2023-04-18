@@ -32,7 +32,6 @@ function chooseCountThree() {
     localStorage.countNumbersValue = '3';
     let elThird = document.getElementById('third');
     elThird.setAttribute('required', '');
-    elThird.setAttribute('pattern', '^\\s*[-]?\\d{1,10}\\s*$');
     elThird.style.display = 'inline-block';
     let elNumbersThree = document.getElementById('numbersThree');
     elNumbersThree.style.display = 'inline-block';
@@ -54,7 +53,6 @@ function clearNumbersThree() {
     elNumbersThree.style.display = 'none';
     let elThird = document.getElementById('third');
     elThird.removeAttribute('required');
-    elThird.removeAttribute('pattern');
     elThird.style.display = 'none';
 }
 
